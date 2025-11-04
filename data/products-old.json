@@ -1,0 +1,22 @@
+[
+    {"name": "Espresso", "price": 3.0, "description": "A rich, concentrated shot of coffee.", "category": "Coffee", "tags": ["hot", "caffeinated"]},
+    {"name": "Americano", "price": 3.5, "description": "Espresso diluted with hot water for a smoother cup.", "category": "Coffee", "tags": ["hot", "caffeinated"]},
+    {"name": "Cappuccino", "price": 4.25, "description": "Espresso with steamed milk and thick foam.", "category": "Coffee", "tags": ["hot", "milky", "contains-dairy"]},
+    {"name": "Latte", "price": 4.5, "description": "Creamy espresso with plenty of steamed milk.", "category": "Coffee", "tags": ["hot", "milky", "contains-dairy"]},
+    {"name": "Cold Brew", "price": 4.75, "description": "Slow-steeped coffee served chilled.", "category": "Coffee", "tags": ["cold", "iced", "caffeinated"]},
+    {"name": "Earl Grey", "price": 3.25, "description": "Bergamot-scented black tea.", "category": "Tea", "tags": ["hot", "caffeinated"]},
+    {"name": "Jasmine Green Tea", "price": 3.5, "description": "Fragrant green tea with jasmine.", "category": "Tea", "tags": ["hot", "caffeinated"]},
+    {"name": "Matcha Latte", "price": 5.0, "description": "Whisked matcha with steamed milk.", "category": "Tea", "tags": ["hot", "milky", "contains-dairy", "caffeinated"]},
+    {"name": "Iced Hibiscus", "price": 3.95, "description": "Tart herbal tea over ice.", "category": "Tea", "tags": ["cold", "iced", "vegan"]},
+    {"name": "Butter Croissant", "price": 3.95, "description": "Flaky, buttery pastry baked fresh.", "category": "Pastries", "tags": ["sweet", "contains-dairy"]},
+    {"name": "Blueberry Muffin", "price": 3.75, "description": "Soft muffin with blueberries.", "category": "Pastries", "tags": ["sweet"]},
+    {"name": "Vegan Banana Bread", "price": 3.95, "description": "Moist banana loaf without eggs or dairy.", "category": "Pastries", "tags": ["vegan", "sweet"]},
+    {"name": "Gluten-Free Brownie", "price": 4.25, "description": "Fudgy brownie made with gluten-free flour.", "category": "Pastries", "tags": ["gluten-free", "sweet"]},
+    {"name": "Breakfast Sandwich", "price": 6.95, "description": "Egg, cheddar, and bacon on a toasted bun.", "category": "Breakfast", "tags": ["contains-dairy"]},
+    {"name": "Avocado Toast", "price": 7.25, "description": "Sourdough topped with smashed avocado and chili flakes.", "category": "Breakfast", "tags": ["vegetarian"]},
+    {"name": "Yogurt Parfait", "price": 5.25, "description": "Vanilla yogurt layered with granola and berries.", "category": "Breakfast", "tags": ["sweet", "contains-dairy"]},
+    {"name": "Turkey Pesto Panini", "price": 9.25, "description": "Roasted turkey, provolone, and pesto pressed warm.", "category": "Sandwiches", "tags": ["contains-dairy"]},
+    {"name": "Caprese Panini", "price": 8.95, "description": "Mozzarella, tomato, basil, and balsamic.", "category": "Sandwiches", "tags": ["vegetarian", "contains-dairy"]},
+    {"name": "Veggie Wrap", "price": 8.5, "description": "Hummus, cucumber, carrot, and greens in a spinach wrap.", "category": "Sandwiches", "tags": ["vegan"]},
+    {"name": "Chicken Club", "price": 9.75, "description": "Grilled chicken, lettuce, tomato, and mayo.", "category": "Sandwiches", "tags": []}
+]
