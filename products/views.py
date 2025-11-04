@@ -1,3 +1,4 @@
+import re
 import time
 from django.views.generic import TemplateView
 from django.db.models import Count, Q
@@ -47,10 +48,21 @@ class IndexView(TemplateView):
         # Filters applied
         if description or category or tags:
             if description:
+                searched_phrases = re.split(r'\W+', description)
+                search_query = None
+
+                for phrase in searched_phrases:
+                    if not search_query:
+                        search_query = SearchQuery(
+                            f"{phrase}:*", search_type="raw", config="english"
+                        )
+                    else:
+                        search_query &= SearchQuery(
+                            f"{phrase}:*", search_type="raw", config="english"
+                        )
+                
                 query = query.filter(
-                    description_tsv=SearchQuery(
-                        f"{description}:*", search_type="raw", config="english"
-                    )
+                    description_tsv=search_query
                 )
             if category:
                 query = query.filter(category__id=category)
