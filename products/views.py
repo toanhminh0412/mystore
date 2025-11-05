@@ -3,7 +3,8 @@ import time
 from django.views.generic import TemplateView
 from django.db.models import Count, Q
 from django.db.models.expressions import RawSQL
-from django.contrib.postgres.search import SearchQuery
+from django.contrib.postgres.search import SearchQuery, TrigramWordSimilarity
+from django.db.models.functions import Least
 from .models import Category, Tag, Product
 
 class IndexView(TemplateView):
@@ -49,21 +50,20 @@ class IndexView(TemplateView):
         if description or category or tags:
             if description:
                 searched_phrases = re.split(r'\W+', description)
-                search_query = None
+                similarity_query = None
 
-                for phrase in searched_phrases:
-                    if not search_query:
-                        search_query = SearchQuery(
-                            f"{phrase}:*", search_type="raw", config="english"
-                        )
-                    else:
-                        search_query &= SearchQuery(
-                            f"{phrase}:*", search_type="raw", config="english"
-                        )
-                
-                query = query.filter(
-                    description_tsv=search_query
-                )
+                # Length of search_phrases cannot be 0
+                if len(searched_phrases) == 1:
+                    similarity_query = TrigramWordSimilarity(searched_phrases[0], "description")
+                else:
+                    similarity_query = Least(*(TrigramWordSimilarity(phrase, "description") for phrase in searched_phrases))
+
+                query = query.annotate(
+                    similarity=similarity_query
+                ).filter(
+                    similarity__gt=0.3
+                ).order_by("-similarity")
+
             if category:
                 query = query.filter(category__id=category)
 
