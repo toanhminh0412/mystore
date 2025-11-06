@@ -4,6 +4,7 @@ from django.views.generic import TemplateView
 from django.db.models import Count, Q
 from django.contrib.postgres.search import TrigramWordSimilarity
 from django.db.models.functions import Least
+from django.core.paginator import Paginator
 from .models import Category, Tag, Product
 
 class IndexView(TemplateView):
@@ -36,6 +37,13 @@ class IndexView(TemplateView):
             except ValueError:
                 continue
         tags = processed_tags
+        
+        # Handle case when page is not a number
+        page = self.request.GET.get('page', 1)
+        try:
+            page = int(page)
+        except ValueError:
+            page = 1
 
         # Start time counter
         start = time.perf_counter()
@@ -62,6 +70,13 @@ class IndexView(TemplateView):
                 ).filter(
                     similarity__gt=0.3
                 ).order_by("-similarity")
+                
+                # Uncomment this block of code for substring exact search
+                # combined_query = Q()
+                # for phrase in searched_phrases:
+                #     combined_query &= Q(description__icontains=phrase)
+                
+                # query = query.filter(combined_query)
 
             if category:
                 query = query.filter(category__id=category)
@@ -80,7 +95,9 @@ class IndexView(TemplateView):
         end = time.perf_counter()
 
         # Context variables used for template
-        context["products"] = query
+        paginator =  Paginator(query, 25)
+        context["paginator"] = paginator
+        context["product_page"] = paginator.get_page(page)
         context["categories"] = Category.objects.all()
         context["tags"] = Tag.objects.all()
 

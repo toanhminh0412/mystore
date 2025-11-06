@@ -1,3 +1,5 @@
+{% load query %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -88,6 +90,26 @@
 
         <p>Query executed in <strong>{{ query_execution_time }}</strong> seconds</p>
 
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                {% if product_page.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?{% build_query_string request page=1 %}">&laquo; first</a></li>
+                    <li class="page-item"><a class="page-link" href="?{% build_query_string request page=product_page.previous_page_number %}">&laquo;</a></li>
+                {% endif %}
+                
+                <li class="page-item active"><a class="page-link" href="#">{{ product_page.number }} of {{ paginator.num_pages }}</a></li>
+
+                {% if product_page.has_next %}
+                <li class="page-item">
+                    <a class="page-link {% if not product_page.has_next %}disabled{% endif %}" href="?{% build_query_string request page=product_page.next_page_number %}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                <li class="page-item"><a class="page-link" href="?{% build_query_string request page=paginator.num_pages %}">last &raquo;</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+
         <table class="table table-striped" style="width: 100%;">
           <thead>
             <tr>
@@ -100,7 +122,7 @@
             </tr>
           </thead>
           <tbody>
-            {% for product in products %}
+            {% for product in product_page %}
               <tr>
                 <th>{{ product.id }}</th>
                 <td>{{ product.name }}</td>
