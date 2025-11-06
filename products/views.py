@@ -2,8 +2,7 @@ import re
 import time
 from django.views.generic import TemplateView
 from django.db.models import Count, Q
-from django.db.models.expressions import RawSQL
-from django.contrib.postgres.search import SearchQuery, TrigramWordSimilarity
+from django.contrib.postgres.search import TrigramWordSimilarity
 from django.db.models.functions import Least
 from .models import Category, Tag, Product
 
