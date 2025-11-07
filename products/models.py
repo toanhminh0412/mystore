@@ -28,6 +28,12 @@ class Tag(models.Model):
 
     def __str__(self) -> str:
         return repr(self)
+    
+    def serialize(self):
+        return {
+            "name": self.name,
+            # "products": [product.name for product in self.product_set.all()]
+        }
 
 class Product(models.Model):
     """
@@ -54,3 +60,12 @@ class Product(models.Model):
         Used in HTML and print statements
         """
         return ', '.join(self.tag.values_list('name', flat=True))
+    
+    def serialize(self):
+        return {
+            "name": self.name,
+            "price": self.price,
+            "description": self.description,
+            "category": self.category.name,
+            "tags": [tag.name for tag in self.tag.all()]
+        }
